@@ -76,6 +76,18 @@ pipeline {
             }
           }
 
+          /* ==== UI TESTING ==== */ 
+       stage('UI-Test -Selenium'){
+          steps{
+            sh 'mvn -pl qa-tests/ui-tests test'
+          }
+          post{
+            always{
+               junit '**/ui-tests/target/surefire-reports/*.xml'
+            }
+          }
+       }
+
 	     stage("UploadArtifact"){
             steps{
                 nexusArtifactUploader(
